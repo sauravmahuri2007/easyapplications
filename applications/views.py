@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect, reverse, Http404
 from django.views.generic import View
 
 from .forms import ApplicationForm
-from utils.generic import generate_applicationid
+from utils.generic import generate_applicationid, create_application, AppDetails
 
 # Create your views here.
 
@@ -25,7 +25,9 @@ class ApplyView(View):
         if not form.is_valid():
             return render(request, 'home.html', context={'form': form})
         applicationid = generate_applicationid()
-        # ToDo: saves the application into DB
+        app_data = form.cleaned_data
+        app_data['applicationid'] = applicationid
+        create_application(app_data)
         return HttpResponseRedirect(reverse('application', kwargs={'applicationid': applicationid}))
 
 
@@ -36,7 +38,7 @@ class ApplicationView(View):
 
     def get(self, request, *args, **kwargs):
         applicationid = kwargs.get('applicationid')
-        # ToDo: get the application object and render the application page.
-        raise Http404
+        app_obj = AppDetails(applicationid)
+        return render(request, 'application.html', {'application': app_obj.application})
 
 

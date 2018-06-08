@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+    <div id="content" class="colMS">
+        {% if application.status == 'NEWAPPLICATION' %}
+            <h1>Thank you! Please note down your application id for future reference.</h1>
+        {% endif %}
+        <div id="content-main">
+            <div class="app-auth module">
+                <table>
+                    <caption>
+                        <span>Application Details</span>
+                    </caption>
+
+                    <tr class="model-group">
+                        <th scope="row">Application ID</th>
+                        <td>{{ application.applicationid }}</td>
+                    </tr>
+
+                    <tr class="model-group">
+                        <th scope="row">First Name</th>
+                        <td>{{ application.first_name }}</td>
+                    </tr>
+
+                    <tr class="model-group">
+                        <th scope="row">Last Name</th>
+                        <td>{{ application.last_name }}</td>
+                    </tr>
+
+                    <tr class="model-group">
+                        <th scope="row">Email</th>
+                        <td>{{ application.email }}</td>
+                    </tr>
+
+                    <tr class="model-group">
+                        <th scope="row">Current Status</th>
+                        <td>{{ application.status }}</td>
+                    </tr>
+
+                    <tr class="model-group">
+                        <th scope="row">Applied On</th>
+                        <td>{{ application.created_dtm }}</td>
+                    </tr>
+
+                    <tr class="model-group">
+                        <td><a href="{% url 'apply' %}" class="addlink" title="You can still apply for a new application!">Apply a new application</a></td>
+                    </tr>
+
+
+                </table>
+            </div>
+        </div>
+        <br class="clear" />
+    </div>
+{% endblock body_content %}
