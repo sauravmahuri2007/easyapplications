@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+{% block title %}
+    <title>Base | Application</title>
+{% endblock title %}
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/dashboard.css" />
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css" />
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+<body class=" dashboard" data-admin-utc-offset="0">
+
+<!-- Container -->
+<div id="container">
+
+    <!-- Header -->
+    {% block header %}
+        <div id="header">
+            <div id="branding">
+                <h1 id="site-name"><a href="{% url 'apply' %}">Application</a></h1>
+            </div>
+            <div id="user-tools">
+                Welcome,
+                <strong>{% if user.name %}{{ user.name }}{% else %}Guest!{% endif %}</strong>.
+                <a href="/admin/logout/">Log out</a>
+            </div>
+        </div>
+    {% endblock header %}
+    <!-- END Header -->
+
+    <!-- Content -->
+    {% block body_content %}
+
+    {% endblock body_content %}
+    <!-- END Content -->
+
+    {% block footer %}
+        <div id="footer"></div>
+    {% endblock footer %}
+</div>
+<!-- END Container -->
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+    <div id="content" class="colMS">
+        <h1>Please Submit Your Application</h1>
+        <form name="applicationForm" method="post">{% csrf_token %}
+            <div id="content-main">
+                <div class="app-auth module">
+                    {{ form.as_p }}
+                </div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+        <br class="clear" />
+    </div>
+{% endblock body_content %}
