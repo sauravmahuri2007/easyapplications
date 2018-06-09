@@ -26,8 +26,14 @@
             </div>
             <div id="user-tools">
                 Welcome,
-                <strong>{% if user.name %}{{ user.name }}{% else %}Guest!{% endif %}</strong>.
-                <a href="/admin/logout/">Log out</a>
+                {% if request.user.is_authenticated %}
+                    <strong>{{ request.user.username }}</strong>
+                    <a href="/admin/logout?next=/">Log out</a>
+                {% else %}
+                    <strong>Guest!</strong>
+                    <a href="{% url 'all' %}">Log in</a>
+                {% endif %}
+
             </div>
         </div>
     {% endblock header %}
