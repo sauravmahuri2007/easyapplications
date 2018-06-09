@@ -8,6 +8,7 @@ import datetime
 import hashlib
 import random
 
+from django.utils.timezone import now
 from applications.models import Applications
 
 def generate_applicationid():
@@ -58,7 +59,7 @@ class AppDetails(object):
 
     def set_status(self, status):
         self.application.status = status
-        self.application.updated_dtm = datetime.datetime.now()
+        self.application.updated_dtm = now()
         self.application.save()
         return True
 
