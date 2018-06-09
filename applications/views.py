@@ -70,7 +70,28 @@ class ListApplicationView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         all_applications = get_all_applications('first_name')
-        # ToDo: add functionalities to 'accept' or 'reject' the applications
         return render(request, 'list_applications.html', {'applications': all_applications})
+
+
+class ApplicationActionView(LoginRequiredMixin, View):
+    """
+    This view will take care for approval or rejection of the applications
+    """
+
+    def get(self, request, *args, **kwargs):
+        referrer_url = request.META.get('HTTP_REFERER')
+        applicationid = kwargs.get('applicationid')
+        action = request.GET.get('action')
+        if not action or not applicationid:
+            # return to the Referrer URL from where the request came or the apply page
+            if referrer_url:
+                return HttpResponseRedirect(referrer_url)
+            return HttpResponseRedirect(reverse('apply'))
+        try:
+            app_obj = AppDetails(applicationid)
+            app_obj.set_status(action)
+            return HttpResponseRedirect(referrer_url)
+        except:
+            return HttpResponseRedirect(reverse('apply'))
 
 

@@ -41,10 +41,25 @@
                         <th scope="row">Applied On</th>
                         <td>{{ application.created_dtm }}</td>
                     </tr>
+                    {% if not request.user %}
+                        <tr class="model-group">
+                            <td><a href="{% url 'apply' %}" class="addlink" title="You can still apply for a new application!">Apply a new application</a></td>
+                        </tr>
+                    {% endif %}
 
-                    <tr class="model-group">
-                        <td><a href="{% url 'apply' %}" class="addlink" title="You can still apply for a new application!">Apply a new application</a></td>
-                    </tr>
+                    {% if request.user and request.user.is_authenticated %}
+                        <tr class="model-user">
+                            {% if not application.status == 'ACCEPTED' %}
+                                <th><a href="{% url 'action' applicationid=application.applicationid %}?action=ACCEPTED">Accept</a></th>
+                            {% endif %}
+                            {% if not application.status == 'REJECTED' %}
+                                <th><a href="{% url 'action' applicationid=application.applicationid %}?action=REJECTED">Reject</a></th>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td><a href="{% url 'all' %}">Back</a></td>
+                        </tr>
+                    {% endif %}
 
 
                 </table>

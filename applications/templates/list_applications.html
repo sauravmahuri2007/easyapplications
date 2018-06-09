@@ -13,6 +13,16 @@
                     {% for app in applications %}
                         <tr class="model-group">
                             <th><a href="{% url 'application' applicationid=app.applicationid %}">{{ app }}</a></th>
+                            {% if not app.status == 'ACCEPTED' %}
+                                <th><a href="{% url 'action' applicationid=app.applicationid %}?action=ACCEPTED">Accept</a></th>
+                            {% else %}
+                                <th></th>
+                            {% endif %}
+                            {% if not app.status == 'REJECTED' %}
+                                <th><a href="{% url 'action' applicationid=app.applicationid %}?action=REJECTED">Reject</a></th>
+                            {% else %}
+                                <th></th>
+                            {% endif %}
                         </tr>
                     {% endfor %}
 
