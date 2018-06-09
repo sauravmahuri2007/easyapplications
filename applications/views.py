@@ -15,10 +15,9 @@ class ApplicationAuthMixin(View):
     def dispatch(self, request, *args, **kwargs):
         applicationid = kwargs.get('applicationid')
         cookie_apps = request.COOKIES.get('applications') or ''
-        # ToDo: Add an exception for Admin as admin can see this application details page.
-        if applicationid not in cookie_apps:
-            return HttpResponseRedirect(reverse('apply'))
-        return super(ApplicationAuthMixin, self).dispatch(request, *args, **kwargs)
+        if (request.user and request.user.is_authenticated) or (applicationid in cookie_apps):
+            return super(ApplicationAuthMixin, self).dispatch(request, *args, **kwargs)
+        return HttpResponseRedirect(reverse('apply'))
 
 
 class LoginView(View):

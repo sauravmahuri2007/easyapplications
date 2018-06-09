@@ -41,7 +41,7 @@
                         <th scope="row">Applied On</th>
                         <td>{{ application.created_dtm }}</td>
                     </tr>
-                    {% if not request.user %}
+                    {% if not request.user.is_authenticated %}
                         <tr class="model-group">
                             <td><a href="{% url 'apply' %}" class="addlink" title="You can still apply for a new application!">Apply a new application</a></td>
                         </tr>
