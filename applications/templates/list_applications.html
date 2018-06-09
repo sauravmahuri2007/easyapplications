@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+    <div id="content" class="colMS">
+        <h1>Click on the applications to see more details</h1>
+        <div id="content-main">
+            <div class="app-auth module">
+                <table>
+                    <caption>
+                        <span>All Application Details</span>
+                    </caption>
+
+                    {% for app in applications %}
+                        <tr class="model-group">
+                            <th><a href="{% url 'application' applicationid=app.applicationid %}">{{ app }}</a></th>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+        <br class="clear" />
+    </div>
+{% endblock body_content %}

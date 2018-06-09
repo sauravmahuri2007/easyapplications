@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Reusing Admin Login URL where ever the login is required
+LOGIN_URL = 'admin/login'
+
+
 # Application definition
 
 INSTALLED_APPS = [

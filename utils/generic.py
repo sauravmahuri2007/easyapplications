@@ -34,6 +34,16 @@ def create_application(app_data):
     app.save()
 
 
+def get_all_applications(order_by=None):
+    try:
+        all_apps = Applications.objects.all()
+        if order_by:
+            all_apps = all_apps.order_by(order_by)
+        return all_apps
+    except:
+        return []
+
+
 class AppDetails(object):
     """
     Generic application object to get/update application details

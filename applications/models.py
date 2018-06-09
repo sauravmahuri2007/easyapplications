@@ -14,3 +14,15 @@ class Applications(models.Model):
     class Meta:
         db_table = 'applications'
         get_latest_by = ['-created_dtm', '-updated_dtm']
+
+    def __repr__(self):
+        return '<Application ({0}: {1} {2} | {3} | {4})>'.format(
+            self.applicationid, self.first_name, self.last_name, self.email,
+            self.status
+        )
+
+    def __str__(self):
+        return '<Application ({0}: {1} {2} | {3} | {4})>'.format(
+            self.applicationid, self.first_name, self.last_name, self.email,
+            self.status
+        )

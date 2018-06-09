@@ -1,8 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, HttpResponseRedirect, reverse, Http404
 from django.views.generic import View
 
 from .forms import ApplicationForm
-from utils.generic import generate_applicationid, create_application, AppDetails
+from utils.generic import generate_applicationid, create_application, AppDetails, get_all_applications
 
 # Create your views here.
 
@@ -60,5 +61,16 @@ class ApplicationView(ApplicationAuthMixin, View):
         applicationid = kwargs.get('applicationid')
         app_obj = AppDetails(applicationid)
         return render(request, 'application.html', {'application': app_obj.application})
+
+
+class ListApplicationView(LoginRequiredMixin, View):
+    """
+    Show all applications from where logged in user can approve or reject the applications
+    """
+
+    def get(self, request, *args, **kwargs):
+        all_applications = get_all_applications('first_name')
+        # ToDo: add functionalities to 'accept' or 'reject' the applications
+        return render(request, 'list_applications.html', {'applications': all_applications})
 
 
