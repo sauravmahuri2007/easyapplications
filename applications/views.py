@@ -1,11 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, HttpResponseRedirect, reverse, Http404
+from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.views.generic import View
 
 from .forms import ApplicationForm
 from utils.generic import generate_applicationid, create_application, AppDetails, get_all_applications
 
-# Create your views here.
 
 class ApplicationAuthMixin(View):
     """
@@ -19,10 +18,6 @@ class ApplicationAuthMixin(View):
             return super(ApplicationAuthMixin, self).dispatch(request, *args, **kwargs)
         return HttpResponseRedirect(reverse('apply'))
 
-
-class LoginView(View):
-    # ToDo: create a login form and the a login template
-    pass
 
 class ApplyView(View):
     """
