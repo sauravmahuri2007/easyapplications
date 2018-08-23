@@ -1,18 +1,44 @@
 {% extends 'base.html' %}
 
 {% block body_content %}
-    <div id="content" class="colMS">
+    <div id="content" class="colMS" ng-app="Application" ng-controller="ApplicationController">
         <h1>Please Submit Your Application</h1>
-        <form name="applicationForm" method="post">{% csrf_token %}
+        <form name="applicationForm" method="post" action="" novalidate>{% csrf_token %}
             <div id="content-main">
                 <div class="app-auth module">
-                    {{ form.as_p }}
+                    <p><label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}: </label>
+                        {{ form.first_name }}
+                        <span style="color:red" ng-show="applicationForm.first_name.$invalid && applicationForm.first_name.$touched">
+                            <span ng-show="applicationForm.first_name.$error.required">This is required</span>
+                        </span>
+                    </p>
+                    <p><label for="{{ form.last_name.id_for_label }}"> {{ form.last_name.label }}: </label>
+                        {{ form.last_name }}
+                        <span style="color:red" ng-show="applicationForm.last_name.$invalid && applicationForm.last_name.$touched">
+                            <span ng-show="applicationForm.last_name.$error.required">This is required</span>
+                        </span>
+                    </p>
+                    <p><label for="{{ form.email.id_for_label }}"> {{ form.email.label }}: </label>
+                        {{ form.email }}
+                        <span style="color:red" ng-show="applicationForm.email.$invalid && applicationForm.email.$touched">
+                            <span ng-show="applicationForm.email.$error.required">This is required</span>
+                            <span ng-show="applicationForm.email.$error.email">Please enter a valid email</span>
+                        </span>
+                    </p>
                 </div>
                 <div>
-                    <button type="submit">Submit</button>
+                    <button type="submit" ng-disabled="applicationForm.$invalid">Submit</button>
                 </div>
             </div>
         </form>
         <br class="clear" />
     </div>
 {% endblock body_content %}
+
+{% block script %}
+<script>
+    var app = angular.module('Application', []);
+    app.controller('ApplicationController', function($scope) {
+    });
+</script>
+{% endblock script %}
